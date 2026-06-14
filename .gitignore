@@ -1,0 +1,17 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Web build & dependencies
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.env
+
+# Local logs and test files
+*.log
+.vscode/
+.idea/
+
+# Unrelated tasks
+mlp_xor.py

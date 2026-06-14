@@ -1,0 +1,34 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="map_file" default="$(env HOME)/Área de trabalho/map.yaml" />
+  <arg name="sim" default="false" />
+  <arg name="allow_diagonal" default="false" />
+  <arg name="inflation_radius" default="0.8" />
+  <arg name="u_weight" default="15.0" />
+  
+  <arg name="kv" default="0.4" />
+  <arg name="kw" default="1.2" />
+  <arg name="lookahead" default="0.4" />
+
+  <!-- Determine cmd_vel topic based on simulation vs real robot (RosAria) -->
+  <arg name="cmd_vel_topic" default="/cmd_vel" if="$(arg sim)" />
+  <arg name="cmd_vel_topic" default="/RosAria/cmd_vel" unless="$(arg sim)" />
+
+  <!-- Map Server Node -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!-- A* Planning & Control Node -->
+  <node name="rosaria_astar_node" pkg="rosaria_astar" type="ros_astar_node.py" output="screen">
+    <param name="allow_diagonal" value="$(arg allow_diagonal)" />
+    <param name="inflation_radius" value="$(arg inflation_radius)" />
+    <param name="u_weight" value="$(arg u_weight)" />
+    <param name="kv" value="$(arg kv)" />
+    <param name="kw" value="$(arg kw)" />
+    <param name="lookahead" value="$(arg lookahead)" />
+    <param name="cmd_vel_topic" value="$(arg cmd_vel_topic)" />
+  </node>
+
+  <!-- Optional visualization node (RVIZ) -->
+  <!-- You can open RVIZ manually or uncomment this line to run it automatically -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rosaria_astar)/rviz/navigation.rviz" /> -->
+</launch>

@@ -1,0 +1,25 @@
+UNIVERSIDADE DO ESTADO DO RIO GRANDE DO NORTE – UERN
+Pró-Reitoria de Ensino e Graduação - PROEG
+Unidade Universitária: Campus de Natal – CaN
+Ciência da Computação 
+INSTRUÇÕES PARA UTILIZAR O ROBÔ PIONEER 3AT COM ROS
+ 
+1) Acesso remoto
+No computador do robô inicialize o programa Rustdesk. O programa irá gerar um ID e uma senha. No computador cliente, acesse o site https://rustdesk.com/web/, que irá permitir a você ter acesso à área de trabalho do computador no robô. No site, insira o ID e a senha gerados pelo Rustdesk no computador do robô e peça para se conectar. Você deverá então ter acesso ao computador do robô remotamente pelo navegador.
+ 
+2) Inicialização do ROS no computador do robô
+Usando seu acesso remoto ao computador do robô, abra um terminal e execute o comando roscore para inicializar o ambiente do ROS. 
+3) Conexão do ROS com o Pioneer 3AT
+Para conectar o robô Pioneer com o ROS, você precisa executar o nó que habilitará essa comunicação por meio da biblioteca rosaria.Porém, antes que isso seja feito, habilite a permissão de uso da porta USB de conexão do robô com o computador nele por meio do comando,
+sudo chamod a+wr /dev/ttyUSB0
+Se o comando acima retornar falha, veja se a porta USB usada é realmente a USB0. Se não for, troque a porta USB pela correta no comando anterior e execute-o novamente. Em seguida, execute o nó de execução da biblioteca rosaria,
+rosrun rosaria RosAria
+A partir desse comando, você terá acesso aos nós que controlam o robô e às leituras dos dados sensoriais internos do robô nos tópicos correspondentes.
+4) Conexão com o Kinect
+Para se conectar ao Kinect, precisamos executar o nó que dá acesso às leituras sensoriais com o seguinte comando:
+roslaunch freenect_launch freenect.launch
+Esse comando fará com que os dados do Kinect estejam disponíveis em vários tópicos criados pelo ROS. Assim, é possível ler dados do sensor infravermelho e da câmera. Como explicado, o nosso propósito é que esse experimento seja uma replicação do que foi feito no ambiente simulado. Logo, faremos uma adaptação/simplificação dos dados do infravermelho do Kinect para que eles sejam representados como se fossem dados de um Lidar 2D. O comando a seguir fará essa adaptação.
+roslaunch rosaria pointcloud2laser.launch
+Esse comando fará a criação de um tópico nomeado de /scan, no qual medidas de distância estarão disponíveis para leitura.  Lembre-se de verificar os detalhes dessas leituras como, ângulo máximo e mínimo, distância máxima e mínima.
+5) Mapeamento
+Para o mapeamento execute o algoritmo Gmapping da mesma forma que você executou com o turtlebot, fazendo as adaptações necessárias para a leituras sensoriais e odometria do Pioneer. Lembre-se de salvar o seu mapa para utilizá-lo posteriormente no algoritmo de planejamento de caminhos.

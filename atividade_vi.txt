@@ -1,0 +1,56 @@
+UNIVERSIDADE DO ESTADO DO RIO GRANDE DO NORTE – UERN
+Pró-Reitoria de Ensino e Graduação - PROEG
+Unidade Universitária: Campus de Natal – CaN
+Ciência da Computação 
+ATIVIDADE PRÁTICA VI - PLANEJAMENTO DE CAMINHOS PARA NAVEGAÇÃO
+(Pontuação: 10 pts)
+Objetivos: 
+Implementar e executar o algoritmo de planejamento de caminhos em um robô no Gazebo e Robô real.
+ 
+Atividade de Experimentação
+Os algoritmos de planejamento de caminhos são de grande importância no desenvolvimento de um robô móvel autônomo. Com o planejamento de caminhos, um robô está apto a navegar em seu ambiente de forma segura, sem se colidir com obstáculos. Nesta atividade você deve implementar um planejamento de caminhos baseado em Decomposição em Células Aproximadas com a busca do melhor caminho. 
+Pontos de Avaliação:
+Construção da Grade – ambiente de 30m x 30m; (1,0 pt)
+Preenchimento da Grade – células ocupadas (obstáculos) e vazias (com potenciais); (2,0 pts)
+Busca do melhor caminho – de acordo com o algoritmo especificado; (2,0 pts)
+Fazer o robô seguir o caminho, saindo da pose inicial e chegando à pose final. (2,0 pts)
+Apresentação final; (3,0pts)
+Algoritmos de planejamento de caminhos a serem implementados
+Algoritmo de Dijkstra (Grupo 2)
+Wavefront (Grupo 5)
+A* (Distância de Manhattan) (Grupo 3)
+A* (Distância Euclidiana) (Grupo 4)
+Greedy Best-First Search (Grupo 2)
+Para a apresentação, cada grupo deve explicar:
+Como a grade foi preenchida
+Ordem de expansão
+Busca do melhor caminho
+Caminho encontrado
+Tempo de execução
+Vídeo do experimento realizado tanto no Gazebo quanto no robô real.
+Data para entrega (exibição do projeto funcionando): até 17/06/2026 
+Data para a apresentação diante da turma: 
+Dia 22/06/2026 - 3 grupos a serem sorteados (Grupos 1 a 3)
+Dia 24/06/2026 - 2 grupos a serem sorteados (Grupos 4 e 5)
+Divisão dos grupos por dia/seção (cada seção será de 50 min)
+Dia
+Sessão 1
+Sessão 2
+/05
+Grupo 1
+Grupo 2
+01/06
+Grupo 3
+Grupo 4
+03/06
+Grupo 5
+Grupo 1
+08/06
+Grupo 2
+Grupo 3
+10/06
+Grupo 4
+Grupo 5
+15/06
+Reserva
+Reserva
