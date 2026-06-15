@@ -1,0 +1,58 @@
+# Comandos do Projeto de Navegação A* (Pioneer 3AT)
+# Este arquivo contém os comandos que funcionaram no ambiente The Construct.
+
+================================================================================
+1. CLONAR E CONFIGURAR O REPOSITÓRIO (Na primeira vez no terminal do The Construct)
+================================================================================
+cd ~/catkin_ws/src
+git clone https://github.com/luizpeloggio/Rosaria.git
+
+================================================================================
+2. COMPILAR O WORKSPACE
+================================================================================
+# Acessa a raiz do workspace e compila apenas o seu pacote rosaria_astar
+cd ~/catkin_ws
+catkin_make --only-pkg-with-deps rosaria_astar
+
+================================================================================
+3. DAR PERMISSÃO DE EXECUÇÃO AO SCRIPT DO PLANEJADOR
+================================================================================
+chmod +x ~/catkin_ws/src/Rosaria/rosaria_astar/nodes/ros_astar_node.py
+
+================================================================================
+4. ORGANIZAR OS ARQUIVOS DE MAPA (Evita problemas com espaços em "Área de trabalho")
+================================================================================
+# Move os arquivos para a pasta home (~)
+mv ~/Área\ de\ trabalho/map.* ~/
+
+# Atualiza automaticamente o caminho da imagem dentro do map.yaml para o usuário correto
+sed -i 's|/home/anderson/map.pgm|/home/user/map.pgm|g' ~/map.yaml
+
+# Opcional: Verifique se o arquivo map.yaml foi atualizado corretamente
+cat ~/map.yaml
+
+================================================================================
+5. CARREGAR AS VARIÁVEIS DE AMBIENTE DO WORKSPACE
+================================================================================
+source ~/catkin_ws/devel/setup.bash
+
+================================================================================
+6. INICIALIZAR O PLANEJADOR A*
+================================================================================
+
+--- OPÇÃO A: NO GAZEO (SIMULAÇÃO) ---
+# Inicializa o planejador enviando comandos para o tópico /cmd_vel
+roslaunch rosaria_astar astar_planner.launch sim:=true map_file:=/home/user/map.yaml
+
+--- OPÇÃO B: NO ROBÔ FÍSICO ---
+# Inicializa o planejador enviando comandos para o tópico /RosAria/cmd_vel
+roslaunch rosaria_astar astar_planner.launch sim:=false map_file:=/home/user/map.yaml
+
+================================================================================
+7. ENVIAR UM OBJETIVO (GOAL) VIA TERMINAL (Em um segundo terminal)
+================================================================================
+# Lembre-se de carregar o workspace no segundo terminal antes
+source ~/catkin_ws/devel/setup.bash
+
+# Envia o objetivo para as coordenadas (x: 14.1, y: 8.9)
+rostopic pub -1 /move_base_simple/goal geometry_msgs/PoseStamped "{header: {stamp: now, frame_id: 'map'}, pose: {position: {x: 14.1, y: 8.9, z: 0.0}, orientation: {w: 1.0}}}"
