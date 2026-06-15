@@ -40,19 +40,28 @@ source ~/catkin_ws/devel/setup.bash
 6. INICIALIZAR O PLANEJADOR A*
 ================================================================================
 
---- OPÇÃO A: NO GAZEO (SIMULAÇÃO) ---
+--- OPÇÃO A: NO GAZEBO COM PIONEER 3AT (SIMULAÇÃO) ---
 # Inicializa o planejador enviando comandos para o tópico /cmd_vel
 roslaunch rosaria_astar astar_planner.launch sim:=true map_file:=/home/user/map.yaml
 
---- OPÇÃO B: NO ROBÔ FÍSICO ---
+--- OPÇÃO B: NO ROBÔ FÍSICO (PIONEER 3AT) ---
 # Inicializa o planejador enviando comandos para o tópico /RosAria/cmd_vel
 roslaunch rosaria_astar astar_planner.launch sim:=false map_file:=/home/user/map.yaml
 
+--- OPÇÃO C: NO GAZEBO COM TURTLEBOT3 (SIMULAÇÃO) ---
+# 1. Em um terminal, defina o modelo do robô e abra a simulação:
+export TURTLEBOT3_MODEL=burger
+roslaunch turtlebot3_gazebo turtlebot3_world.launch
+
+# 2. Em outro terminal, rode o planejador A* (com sim:=true para usar o /cmd_vel):
+roslaunch rosaria_astar astar_planner.launch sim:=true map_file:=/home/user/map.yaml
+
 ================================================================================
-7. ENVIAR UM OBJETIVO (GOAL) VIA TERMINAL (Em um segundo terminal)
+7. ENVIAR UM OBJETIVO (GOAL) VIA TERMINAL (Em um segundo/terceiro terminal)
 ================================================================================
-# Lembre-se de carregar o workspace no segundo terminal antes
+# Lembre-se de carregar o workspace no terminal antes:
 source ~/catkin_ws/devel/setup.bash
 
 # Envia o objetivo para as coordenadas (x: 14.1, y: 8.9)
 rostopic pub -1 /move_base_simple/goal geometry_msgs/PoseStamped "{header: {stamp: now, frame_id: 'map'}, pose: {position: {x: 14.1, y: 8.9, z: 0.0}, orientation: {w: 1.0}}}"
+
